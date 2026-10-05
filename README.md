@@ -1,22 +1,40 @@
-# Public Trading Research — Evidence Only
+﻿# Public Trading Research — Evidence Only
 
-This repository contains **aggregate research/backtest results only**.
-No source code, no strategy logic, and no trading configuration is published here.
+This repository contains selected aggregate research and backtesting evidence from an ongoing algorithmic trading research project.
 
-## What is included
-- Aggregate statistics from structural market analysis (BOS, liquidity sweeps, FVG, order blocks)
-- Retest detection summaries
-- Experiment-level text reports
+The purpose of this repository is to document research results publicly while keeping the underlying implementation private.
 
-## What is NOT included (and never will be)
+## Currently published
+
+- Time-safe market-structure and setup detection results
+- Break of Structure (BOS)
+- Liquidity-sweep detection
+- Confirmed swing-point statistics
+
+Additional research evidence will be published progressively as each stage of the project is completed.
+
+## What is NOT included
+
 - Trading algorithm source code
-- Feature definitions and ML models
-- Strategy entry/exit rules in executable form
-- Raw data or configuration files
+- Private strategy implementation
+- Executable entry/exit logic
+- Raw market data
+- Private configuration files
+- Machine-learning implementation and models
+
+## Research approach
+
+The project follows a research workflow:
+
+**Market hypothesis → feature engineering → rule-based testing → backtesting → validation → machine learning → robustness testing**
+
+Published results are intended to make selected research outcomes independently viewable without exposing the complete trading system.
 
 ## Disclaimer
-These results are for educational and research purposes only. They are not financial advice. Simulated/past results do not guarantee future performance.
+
+These results are for educational and research purposes only. They are not financial advice. Simulated or historical results do not guarantee future performance.
 
 ## Timeline
+
 - Research started: September 2026
-- Evidence published: October 2026
+- Evidence publication: October 2026
