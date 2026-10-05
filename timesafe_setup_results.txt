@@ -1,0 +1,23 @@
+=== TIME-SAFE TRADING ENGINE SUMMARY ===
+Total historical candles analyzed: 1674
+Swing Highs Identified: 220
+Swing Highs Confirmed (+2 Bars): 220
+Swing Lows Identified: 220
+Swing Lows Confirmed (+2 Bars): 220
+Bullish Break of Structure (BOS): 97
+Bearish Break of Structure (BOS): 74
+Bullish Liquidity Sweeps: 77
+Bearish Liquidity Sweeps: 84
+Total Bullish FVGs: 328
+Total Bearish FVGs: 224
+Bullish Structural Setup Retests (ENTRIES): 21
+Bearish Structural Setup Retests (ENTRIES): 14
+
+=== RECENT TIME-SAFE BULLISH ENTRIES ===
+                   Low        High  Bullish_Setup_FVG_Low  Bullish_Setup_FVG_High
+Date                                                                             
+2024-10-31  225.369995  229.830002             225.979996              227.169998
+2025-02-28  230.199997  242.089996             230.589996              230.679993
+2025-10-10  244.000000  256.380005             241.199997              248.119995
+2025-10-22  255.429993  262.850006             253.380005              261.829987
+2025-12-04  278.589996  284.730011             279.000000              282.630005 
