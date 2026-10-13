@@ -1,0 +1,35 @@
+﻿PART 3 — FROM PATTERN DETECTION TO MULTI-STOCK BACKTESTING
+
+Project: Algorithmic Trading Research & Backtesting System
+Evidence type: Historical, rule-based portfolio backtest
+
+OBJECTIVE
+Evaluate whether the rule-based trading approach could be tested consistently across multiple stocks, rather than relying on results from a single ticker.
+
+STOCK UNIVERSE
+AAPL, AMD, AMZN, AVGO, GOOGL, JPM, META, MSFT, NVDA, TSLA
+
+AGGREGATE RESULTS
+Total trade records: 322
+Resolved trades: 298
+Wins: 108
+Losses: 190
+Ambiguous same-bar outcomes: 22
+Open trades: 2
+Win rate on resolved trades: 36.24%
+Net result on resolved trades: +26R
+Profit factor: 1.137
+
+METHODOLOGY NOTES
+- Win rate is calculated using the 298 resolved trades only.
+- The strategy's recorded outcomes use R-multiples: winning trades are generally +2R and losing trades -1R.
+- The 22 ambiguous same-bar outcomes and 2 open trades are reported separately and are not counted as resolved wins or losses.
+- These are historical backtest results, not live trading performance.
+- Positive aggregate R does not, by itself, establish a durable trading edge or guarantee future performance. Further validation, including transaction-cost and out-of-sample analysis, is necessary.
+
+SOURCE
+Aggregate figures were checked against:
+data/processed/portfolio_trade_log.csv
+data/processed/portfolio_by_ticker.csv
+
+This evidence summary is intended to document the current multi-stock backtesting stage only. It does not include subsequent machine-learning experiments.
