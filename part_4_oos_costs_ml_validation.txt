@@ -1,0 +1,41 @@
+﻿PART 4 — OUT-OF-SAMPLE, COST, AND MACHINE-LEARNING VALIDATION
+Project: Algorithmic Trading Research and Backtesting System
+Evidence status: Historical backtesting and modeled cost analysis; not live-trading results.
+
+1. OUT-OF-SAMPLE BASELINE
+Trades: 169
+Wins: 57
+Losses: 112
+Win rate: 33.73%
+Net result before modeled costs: +2R
+Profit factor: 1.018
+
+2. DIRECTIONAL RESULTS
+Long: 85 trades, 36 wins, 49 losses, 42.35% win rate, +23R, profit factor 1.4694.
+Short: 84 trades, 21 wins, 63 losses, 25.00% win rate, -21R, profit factor 0.6667.
+
+3. MODELED TRANSACTION COSTS
+At 0R cost per trade: +2.00R net result.
+At 0.005R cost per trade: +1.155R net result.
+At 0.01R cost per trade: +0.31R net result.
+The cost assumptions are expressed in R per trade. They are modeled scenarios, not verified broker fees or live execution results.
+
+4. NESTED WALK-FORWARD FILTER EXPERIMENT
+The training-selected filter was evaluated against the baseline across four test folds.
+
+Fold | Baseline trades | Baseline R | Filter trades | Filter R
+Fold 1 | 44 | -5R | 13 | -7R
+Fold 2 | 44 | +16R | 12 | +9R
+Fold 3 | 47 | +1R | 10 | +2R
+Fold 4 | 34 | -10R | 7 | -4R
+Total | 169 | +2R | 42 | 0R
+
+The filter retained 42 of 169 trades (24.85%), reducing trade count by approximately 75.15%. Its combined result was 0R versus +2R for the baseline. Results varied by fold; this experiment did not demonstrate an aggregate improvement.
+
+5. INTERPRETATION AND LIMITATIONS
+- Long and short results differed materially in this sample.
+- Modeled costs nearly erased the baseline's small positive result.
+- The tested machine-learning filter reduced trade frequency but did not improve the combined result across the four folds.
+- These findings do not establish live profitability or prove that machine learning cannot help. Further validation, cost assumptions, robustness checks, and execution testing remain necessary.
+
+Source data are maintained in the private/local research project. This public evidence file reports selected results only; it does not include strategy code or raw datasets.
