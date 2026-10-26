@@ -1,0 +1,40 @@
+﻿PART 5 — MARKET STRUCTURE, SETUP GENERATION, AND TIME-SAFE VALIDATION
+
+Purpose
+This research stage builds the market-structure and structural-retest setup pipeline. Results are historical research outputs, not evidence of live-trading profitability.
+
+Dataset
+Historical candles analyzed: 1,674
+
+Market-structure events
+Bullish breaks of structure (BOS): 76
+Bearish breaks of structure (BOS): 51
+Bullish liquidity sweeps: 36
+Bearish liquidity sweeps: 42
+
+Price-structure zones
+Bullish fair value gaps (FVGs): 328
+Bearish fair value gaps (FVGs): 224
+Bullish order blocks: 18
+Bearish order blocks: 19
+
+Structural setup pipeline
+Bullish structural setups triggered: 13
+Bearish structural setups triggered: 4
+Bullish structural retest entries: 10
+Bearish structural retest entries: 3
+
+Timing and look-ahead considerations
+A swing may occur on one candle but only be confirmed after subsequent candles. The separate time-safe engine summary records 220 swing highs and 220 swing lows confirmed with a two-bar delay.
+
+The confirmation delay is important because a backtest must not use a swing or signal before it would have been knowable. These summaries come from different pipeline outputs and contain different event counts; they must not be combined as though they were produced by one identical run.
+
+Limitations
+- Event counts and setup counts are not equivalent to profitable trades.
+- These results do not establish a positive expectancy or a durable trading edge.
+- The reported summaries do not, by themselves, prove that every feature, signal, entry, and exit is free of look-ahead bias.
+- The next validation stage is to reconcile pipeline outputs, audit signal availability and entry timing, and rerun the backtest before making performance claims.
+- No live-trading performance is claimed.
+
+Project lesson
+A detected pattern is not automatically a valid entry. Reliable strategy research requires consistent event definitions, confirmation timing, executable entry rules, and independently validated outcomes.
