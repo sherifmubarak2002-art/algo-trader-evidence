@@ -1,0 +1,135 @@
+﻿PART 6 — MULTI-STOCK TESTING, OUT-OF-SAMPLE VALIDATION AND RISK MANAGEMENT
+==========================================================================
+
+Project: Algorithmic Trading Research and Backtesting System
+Evidence date: 2026-11-03
+
+1. INITIAL SINGLE-STOCK BACKTEST — AAPL
+---------------------------------------
+Trade records: 30
+Wins: 13
+Losses: 16
+Ambiguous: 1
+Win rate on resolved trades: 44.83%
+Profit factor: 1.625
+Net result: +10R
+Maximum drawdown: -5R
+
+2. EXPANDED MULTI-STOCK BACKTEST
+--------------------------------
+Universe: AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, JPM, AMD
+Trade records: 322
+Resolved trades: 298
+Wins: 108
+Losses: 190
+Win rate on resolved trades: 36.24%
+Profit factor: 1.137
+Net result: +26R
+Ambiguous outcomes: 22
+Open trades: 2
+
+Interpretation:
+The expanded test remained positive, but its win rate and profit factor
+were lower than the initial AAPL test. The two results have different
+sample sizes and scopes and should not be treated as a like-for-like
+performance comparison. A positive historical result does not establish
+a durable trading edge.
+
+3. OUT-OF-SAMPLE VALIDATION
+---------------------------
+Baseline:
+Trades: 169
+Wins: 57
+Losses: 112
+Win rate: 33.73%
+Net result: +2R
+Profit factor: 1.018
+
+Long trades:
+Trades: 85
+Wins: 36
+Losses: 49
+Win rate: 42.35%
+Net result: +23R
+Profit factor: 1.4694
+
+Short trades:
+Trades: 84
+Wins: 21
+Losses: 63
+Win rate: 25.00%
+Net result: -21R
+Profit factor: 0.6667
+
+The long and short results show materially different behaviour. These
+results supported further investigation rather than a claim of proven
+profitability.
+
+4. TRANSACTION-COST SENSITIVITY
+-------------------------------
+The following are hypothetical cost assumptions expressed in R per trade,
+not verified broker fees or market-basis-point estimates.
+
+At 0.005R per trade:
+Total modeled cost: 0.845R
+Net result after modeled costs: +1.155R
+Profit factor: 1.01026
+
+At 0.01R per trade:
+Total modeled cost: 1.69R
+Net result after modeled costs: +0.31R
+Profit factor: 1.00274
+
+5. WALK-FORWARD FILTER EVALUATION
+---------------------------------
+Baseline across four test folds:
+Trades: 169
+Net result: +2R
+
+Filtered strategy across four test folds:
+Trades: 42
+Net result: 0R
+Trade-count reduction: 75.15%
+
+The tested filter did not improve the combined result. This is a finding
+about this particular filter and evaluation, not evidence that machine
+learning is generally ineffective.
+
+6. RISK-MANAGEMENT ENGINE MILESTONE
+----------------------------------
+The risk module integrates:
+- CapitalTracker
+- EquityTracker
+- Position sizing
+
+Validation checkpoint (2026-10-28):
+- Python syntax check passed.
+- 33 automated unit tests passed.
+
+Test command:
+.venv\Scripts\python.exe -m unittest discover -s src/risk -p "test_*.py" -v
+
+The module's test results establish software-level test coverage for the
+tested cases. They do not establish live-trading performance or guarantee
+that all operational risks have been addressed.
+
+7. NEXT DEVELOPMENT STAGE
+-------------------------
+The next focus is portfolio-level risk and performance validation:
+- Build a chronological portfolio equity curve.
+- Measure portfolio drawdown and losing streaks.
+- Account for concurrent positions and capital allocation.
+- Ensure position sizing uses current account equity consistently.
+- Continue towards paper-trading validation after the research and
+  execution checks are complete.
+
+IMPORTANT LIMITATIONS
+---------------------
+- Historical backtest results are not guarantees of future performance.
+- The initial multi-stock +26R result is not the later out-of-sample result.
+- Modeled transaction costs are assumptions, not confirmed broker charges.
+- Passing unit tests does not prove the strategy is profitable or safe
+  to deploy with real capital.
+- No live-trading performance is claimed in this evidence.
+
+END OF PART 6 EVIDENCE
