@@ -1,0 +1,126 @@
+
+PART 7 — FROM INDIVIDUAL TRADES TO PORTFOLIO-LEVEL RISK
+=======================================================
+
+Project: Algorithmic Trading Research and Backtesting System
+Evidence date: 2026-11-11
+
+1. LONG-ONLY MULTI-STOCK EXPERIMENT
+-----------------------------------
+Universe: AAPL, AMD, AMZN, AVGO, GOOGL, JPM, META, MSFT, NVDA, TSLA
+Trade records: 179
+Wins: 63
+Losses: 102
+Ambiguous same-bar outcomes: 12
+Open trades: 2
+Resolved trades: 165
+Win rate on resolved trades: 38.18%
+
+The experiment disabled bearish entries and evaluated long-only trade
+outcomes across ten stocks. Ambiguous trades reached both stop-loss and
+take-profit levels within the same daily candle, so their intraday order
+could not be established from the available daily data.
+
+2. OUTCOME DISTRIBUTION BY STOCK
+--------------------------------
+Ticker   Wins   Losses   Ambiguous   Open
+AAPL       8       10          0       0
+AMD        5       12          1       0
+AMZN       6       10          2       1
+AVGO       2       13          2       0
+GOOGL      8        9          0       0
+JPM       13        7          3       0
+META       6       16          0       0
+MSFT       2       11          1       0
+NVDA       7        7          3       1
+TSLA       6        7          0       0
+TOTAL     63      102         12       2
+
+The distribution shows that trade outcomes differed across assets.
+JPM recorded 13 wins and 7 losses, while META recorded 6 wins and
+16 losses, and AVGO recorded 2 wins and 13 losses.
+
+These are outcome counts, not a ranking by profitability. They do not
+account for trade size, holding period, or the magnitude of each win
+and loss. They motivate further asset-level investigation.
+
+3. CONCURRENT POSITIONS
+-----------------------
+Maximum simultaneous positions: 4
+
+Event convention: exits are processed before new entries on the same
+date. The underlying records use daily dates, so intraday event order
+cannot be confirmed.
+
+This measures historical trade overlap. It does not establish that a
+fully funded portfolio simulation has been completed.
+
+4. RISK AND CAPITAL-MANAGEMENT COMPONENTS
+-----------------------------------------
+The risk-management implementation includes:
+- Position sizing using account equity and a configurable risk fraction.
+- Available-capital constraints on position size.
+- Capital reservations before purchases.
+- Tracking of available cash and open positions.
+- Partial position closures.
+- Fee-adjusted cost basis and realised P&L.
+- Portfolio valuation using available cash and open-position market value.
+
+Default position-sizing risk fraction: 0.5% of realised equity.
+
+Validation checkpoint:
+- 171 automated unit tests passed.
+- Test command:
+  python -m unittest discover -s src -p "test_*.py" -v
+
+These tests validate the covered software components and behaviours.
+They do not prove that the complete historical portfolio simulation
+integrates all components correctly.
+
+5. OUT-OF-SAMPLE TRANSACTION-COST SENSITIVITY
+---------------------------------------------
+Dataset: 169 out-of-sample trades
+Gross result before modeled costs: +2.000R
+
+Assumed cost per trade     Net result
+0.000R                     +2.000R
+0.005R                     +1.155R
+0.010R                     +0.310R
+0.01183R                   Approximately 0R
+0.015R                     -0.535R
+0.020R                     -1.380R
+
+Approximate break-even assumed cost: 0.01183R per trade.
+
+These are hypothetical fixed-cost assumptions expressed in R, not
+verified broker commissions, spreads, slippage, or actual execution
+costs. This 169-trade out-of-sample dataset is separate from the
+179-trade long-only experiment above.
+
+6. CURRENT VALIDATION LIMITATIONS
+---------------------------------
+- The existing cumulative R-based portfolio analysis is not a
+  cash-based, compounded account equity simulation.
+- The 179-trade long-only experiment has not yet been validated through
+  one integrated chronological simulation of cash, equity, position
+  sizing, overlapping positions, and transaction costs.
+- The maximum overlap calculation uses a daily event-order convention.
+- The transaction-cost results are sensitivity assumptions, not actual
+  broker fee measurements.
+- No live-trading performance is claimed.
+
+7. NEXT RESEARCH STAGE — PART 8
+-------------------------------
+Investigate asset-level differences in the long-only experiment:
+- Compare outcome distributions across the ten stocks.
+- Examine whether performance differences persist after accounting
+  for trade frequency and sample size.
+- Investigate trade-level R multiples, expectancy, and drawdown by asset.
+- Assess whether asset selection or asset-specific filters could
+  improve multi-asset strategy robustness.
+
+The objective is to determine whether the strategy should be applied
+uniformly across all assets or whether a more selective asset universe
+is justified by the evidence.
+
+END OF PART 7 EVIDENCE

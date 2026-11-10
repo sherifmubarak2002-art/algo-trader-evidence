@@ -10,6 +10,7 @@ The purpose of this repository is to document research results publicly while ke
 - Break of Structure (BOS)
 - Liquidity-sweep detection
 - Confirmed swing-point statistics
+- Portfolio-level risk validation, concurrent-position analysis, and transaction-cost sensitivity (Part 7)
 
 Additional research evidence will be published progressively as each stage of the project is completed.
 
