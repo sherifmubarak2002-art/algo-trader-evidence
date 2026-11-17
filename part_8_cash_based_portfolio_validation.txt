@@ -1,0 +1,160 @@
+PART 8 — CASH-BASED PORTFOLIO SIMULATION AND VALIDATION
+=======================================================
+
+Project: Algorithmic Trading Research and Backtesting System
+Evidence date: 2026-11-17
+
+1. CASH-BASED MULTI-ASSET PORTFOLIO SIMULATOR
+---------------------------------------------
+The backtesting system progressed from individual trade-outcome
+analysis to a chronological, cash-based portfolio simulator.
+
+Universe: 10 US equities
+AAPL, AMD, AMZN, AVGO, GOOGL, JPM, META, MSFT, NVDA, TSLA
+
+Key implementation features:
+- Long-only execution and whole-share position sizing.
+- 0.5% equity risk per trade.
+- Cash and available-capital constraints.
+- One open position per ticker.
+- Next-bar execution after a signal.
+- Gap-aware stop-loss and take-profit execution.
+- Conservative stop-first handling of ambiguous same-bar exits.
+- Commissions, regulatory fees, spread and slippage.
+- Dividends, corporate actions and GBP/USD conversion.
+- USD trading ledger with GBP portfolio reporting.
+- Timestamped, as-of FX conversion.
+
+The simulator does not use leverage or margin. Short entries are
+rejected. These are historical simulations, not live trading results.
+
+2. DEVELOPMENT AND VALIDATION PERFORMANCE
+-----------------------------------------
+Daily simulation:
+Period: 2020-01-02 to 2025-06-30
+Initial capital: GBP 10,000
+Final equity: GBP 10,041.74
+Return: +0.42%
+Maximum drawdown: -16.91%
+Closed trades: 119
+Win rate: 41.18%
+Profit factor: 1.10
+
+Hourly simulation:
+Period: 2024-11-15 to 2026-05-13
+Initial capital: GBP 10,000
+Final equity: GBP 10,438.67
+Return: +4.39%
+Maximum drawdown: -11.06%
+Closed trades: 225
+Win rate: 39.56%
+Profit factor: 1.16
+
+3. LOCKED OUT-OF-SAMPLE RESULTS
+-------------------------------
+The unchanged simulator configuration was evaluated against the
+locked out-of-sample datasets.
+
+Daily:
+Period: 2025-07-01 to 2026-11-13
+Final equity after FX cost memo: GBP 9,873.77
+Return: -1.22%
+Maximum drawdown: -8.96%
+Closed trades: 34
+Win rate: 32.35%
+Profit factor: 0.61
+Average R: -0.41
+
+Hourly:
+Period: 2026-05-14 to 2026-11-13
+Final equity after FX cost memo: GBP 8,788.81
+Return: -12.07%
+Maximum drawdown: -15.89%
+Closed trades: 93
+Win rate: 30.11%
+Profit factor: 0.54
+Average R: -0.45
+
+The strategy deteriorated out of sample on both timeframes. These
+results do not establish a persistent positive trading edge.
+
+The OOS registry remained locked. No post-result tuning was performed.
+
+4. PERFORMANCE DIAGNOSIS
+------------------------
+A separate analysis investigated the out-of-sample deterioration
+without changing the strategy or rerunning the OOS evaluation.
+
+Findings:
+- Pre-cost trading P&L was already negative: approximately
+  -USD 527 daily and -USD 1,216 hourly.
+- Modeled transaction costs increased the losses but were not
+  their primary cause.
+- Estimated friction was approximately USD 135 daily and
+  USD 822 hourly.
+- Hourly slippage was the largest modeled friction component.
+- Favorable FX translation offset approximately GBP 255 of
+  daily losses and GBP 122 of hourly losses.
+- FX translation is not strategy alpha.
+
+Ticker-level observations were based on small samples and should
+not be treated as robust asset-performance rankings.
+
+5. BASELINE REPRODUCTION — STAGE 1
+----------------------------------
+The original development and validation baseline was reproduced.
+
+Verification:
+- Daily and hourly key metrics matched exactly.
+- All 50 flattened metric keys per timeframe matched.
+- Configuration hashes matched.
+- Input data hashes matched.
+- SHA-256 output hashes matched for transactions, orders, trades,
+  equity curve, positions, signals and metrics files.
+- No performance, execution, accounting, signal, order, trade,
+  configuration or data discrepancies were identified.
+
+Only run-provenance fields differed, including run ID, creation
+timestamp and Git HEAD.
+
+Stage 1 baseline reproduction passed.
+
+6. EXPERIMENT INFRASTRUCTURE — STAGE 2
+--------------------------------------
+Experiment infrastructure was implemented without enabling or
+running any strategy treatments.
+
+Validation:
+- 301 automated tests passed.
+- 108 subtests passed.
+- Default daily and hourly paths reproduced the original baseline.
+- All 21 daily and 31 hourly data hashes matched.
+- Six CSV outputs and metrics.json were byte-identical.
+- No treatments were enabled or executed.
+- No new market data was fetched.
+- No OOS evaluation was rerun.
+- The locked OOS registry SHA-256 remained unchanged.
+
+The proposed treatment families remain untested:
+E1 — Directional market-regime filter.
+E2 — Winner-persistence exit management.
+E3 — Volatility-scaled stops.
+E4 — Cross-sectional confirmation.
+
+The experiment infrastructure is not evidence that any treatment
+improves strategy performance.
+
+7. CURRENT RESEARCH STATUS
+--------------------------
+The project has progressed from trade-level analysis to cash-based
+portfolio simulation, locked OOS evaluation, performance diagnosis,
+baseline reproduction and controlled experiment infrastructure.
+
+The next research stage is to evaluate pre-defined hypotheses using
+development and validation data under documented statistical
+controls.
+
+No treatment improvement, live-trading profitability or persistent
+strategy edge is claimed.
+
+END OF PART 8 EVIDENCE
