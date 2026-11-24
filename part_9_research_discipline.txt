@@ -1,0 +1,135 @@
+PART 9 - FROM BACKTESTING TO RESEARCH DISCIPLINE
+================================================
+
+Project: Algorithmic Trading Research and Backtesting System
+Evidence basis: Phase 4 strategy diagnosis; Phase 5 research plan and
+experiment history; Stage 3B verification reports.
+
+This package reports historical portfolio backtests and research controls.
+It does not claim that the strategy is profitable or ready for live trading.
+
+1. PHASE 4 - STRATEGY DIAGNOSIS
+-------------------------------
+The cash-based portfolio covered 10 US equities. Development and Validation
+(D+V) results were modestly positive, but both locked out-of-sample (OOS)
+timeframes were negative:
+
+                         Daily       Hourly
+  D+V return             +0.42%       +4.39%
+  OOS return              -1.22%      -12.07%
+  OOS win rate             32.35%       30.11%
+  OOS profit factor          0.61         0.54
+
+OOS trading performance was already negative before modeled costs: about
+-USD 527 daily and -USD 1,216 hourly. Modeled transaction costs amplified the
+losses by approximately USD 135 daily and USD 822 hourly; they were not the
+primary cause. Favourable GBP/USD translation then masked part of the trading
+losses, adding approximately GBP 255 to the daily result and GBP 122 to the
+hourly result. FX translation is a reporting effect, not strategy alpha.
+
+These OOS results were diagnostic only. They were not used to tune or select
+the strategy.
+
+Limitations: the OOS sample contains 34 closed daily trades and 93 closed
+hourly trades, across a 10-stock universe. The diagnosis also records two
+daily final-bar signals that could not be filled and two hourly positions
+still open at the end of the data; their eventual outcomes are unknown.
+Ticker and regime subsets are smaller still. Costs are modeled assumptions,
+not measured live fills, and the backtest does not establish future or live
+performance.
+
+2. PHASE 5 - PREREGISTERED RESEARCH FRAMEWORK
+---------------------------------------------
+The Phase 5 plan defines four hypotheses:
+
+  E1  Directional regime filters.
+  E2  Trade management / winner persistence.
+  E3  ATR-scaled stops.
+  E4  Cross-sectional confirmation.
+
+The plan separates Dev (hypothesis development) from Validation (one-time
+candidate selection) and keeps OOS protected. Parameters and treatment
+definitions are frozen before evaluation; each hypothesis has a maximum of
+five Dev configurations. A canonical Dev run ledger records attempts,
+including failed attempts, and active treatments require registration before
+execution. Validation candidates are evaluated once after the complete
+candidate family is frozen. The OOS registry remains locked.
+
+The preregistered primary comparison is a paired moving-block bootstrap of
+calendar-aligned per-bar GBP portfolio-return differences, defined as
+Delta = baseline minus candidate. Improvement requires Delta < 0. The plan
+specifies fixed block lengths, 10,000 resamples with a fixed seed, at least
+20 conservative-equivalent blocks, a one-sided null-centred p-value, an
+uncentred one-sided confidence bound, and Holm correction for the declared
+confirmatory family. Predefined acceptance also requires effect-size and
+trade-metric gates; statistical significance alone is insufficient.
+
+This framework is the research plan, not evidence that all four hypotheses
+were run or passed. This package reports no E2 results; E2 appears here only
+as a preregistered hypothesis. The actual outcomes reported below are the
+two recorded E1 Dev comparisons. Neither is a Validation or OOS result.
+
+3. STAGE 3B - VERIFICATION
+--------------------------
+The recorded Stage 3B verification summary reports 343 passed tests and 108
+passed subtests, with zero failures and zero errors. Overall line coverage
+in that summary was 64.7%.
+
+A separate adversarial full-suite run reports 354 passed tests and 108
+passed subtests, with zero failures and zero errors. Its documented
+safeguards verified:
+
+- A five-attempt Dev configuration cap per hypothesis, including failed
+  attempts consuming capacity.
+- Rejection of duplicate run IDs and alternate Dev ledger paths.
+- Registration before treatment execution; failures consume an attempt.
+- Concurrent registration cannot exceed the cap.
+- Frozen treatment configurations and disabled-by-default treatments.
+- Integrity of protected files, including historical results, market data,
+  the Dev ledger and the OOS registry.
+
+The concurrency test used threads against one isolated ledger. It did not
+test multiple OS processes or establish cross-host or NFS locking guarantees.
+These verification tests establish software-control behaviour, not strategy
+profitability or trading performance.
+
+4. ACTUAL E1 DEVELOPMENT DECISIONS
+----------------------------------
+Both recorded comparisons use Dev data only. The paired mean is Delta =
+baseline minus candidate in per-bar fractional GBP portfolio-return units.
+The preregistered improvement direction is a negative mean, with the
+one-sided p-value and confidence-bound criteria also required.
+
+  Daily E1b (below SMA50)
+    Baseline Dev return:              +2.5685%
+    Candidate Dev return:             -1.4476%
+    Mean paired Delta:                +0.00004083094545491203
+    Null-centred one-sided p-value:     0.7554244575542446
+    One-sided 95% upper confidence bound:
+                                      +0.00013778450467897432
+    Conservative blocks:             100 (minimum 20)
+    Decision:                         REJECTED
+
+  Hourly E1a (above SMA50)
+    Baseline Dev return:             +11.4301%
+    Candidate Dev return:             +8.3343%
+    Mean paired Delta:                +0.000016960492804308564
+    Null-centred one-sided p-value:     0.7534246575342466
+    One-sided 95% upper confidence bound:
+                                      +0.00005938278084169883
+    Conservative blocks:              43 (minimum 20)
+    Decision:                         REJECTED
+
+Both candidates failed the preregistered primary improvement direction and
+statistical criteria: each paired mean and upper bound were positive, and
+each p-value exceeded 0.05. The conservative block-count gates passed, so
+these decisions were not classified as sample-block inconclusive. Holm
+adjustment was not applicable to these exploratory Dev comparisons because
+no confirmatory family rank was declared. Neither candidate advanced to
+Validation. No Validation or OOS results were used to select or tune E1.
+
+These results do not establish that the baseline or either candidate has a
+positive edge. They document rejected Dev candidates under the recorded
+decision rule.
+
+END OF PART 9 EVIDENCE

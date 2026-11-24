@@ -1,0 +1,5 @@
+Period,Timeframe,ReturnPercent
+Development + Validation,Daily,0.42
+Development + Validation,Hourly,4.39
+Out of Sample,Daily,-1.22
+Out of Sample,Hourly,-12.07
